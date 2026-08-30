@@ -1,0 +1,5 @@
+node_modules/
+.DS_Store
+
+# Generated visual QA captures; keep the reusable audit scripts in lab/.
+lab/*/

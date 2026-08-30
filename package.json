@@ -1,0 +1,12 @@
+{
+  "name": "carimali-glow-landing-page",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Scroll-driven Carimali Glow quote landing page",
+  "scripts": {
+    "start": "node server.mjs"
+  },
+  "devDependencies": {
+    "playwright-core": "1.62.1"
+  }
+}
