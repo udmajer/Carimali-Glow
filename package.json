@@ -4,6 +4,7 @@
   "private": true,
   "description": "Scroll-driven Carimali Glow quote landing page",
   "scripts": {
+    "build:locales": "node scripts/build-locales.mjs",
     "start": "node server.mjs"
   },
   "devDependencies": {

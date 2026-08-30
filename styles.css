@@ -39,6 +39,18 @@ body.is-form-busy {
   cursor: progress;
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .skip-link {
   position: fixed;
   z-index: 120;
@@ -153,8 +165,55 @@ body.is-form-busy {
   color: #00618b;
 }
 
-.site-bar > .primary-action {
+.header-actions {
+  display: flex;
+  align-items: center;
   justify-self: end;
+  gap: 0.65rem;
+}
+
+.language-switcher {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.language-switcher::after {
+  content: "";
+  position: absolute;
+  right: 0.72rem;
+  width: 0.42rem;
+  height: 0.42rem;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-0.14rem) rotate(45deg);
+  pointer-events: none;
+}
+
+.language-switcher select {
+  min-width: 4.25rem;
+  min-height: 44px;
+  padding: 0.55rem 1.7rem 0.55rem 0.82rem;
+  border: 1px solid rgba(1, 56, 81, 0.24);
+  border-radius: 7px;
+  color: var(--glow-brand);
+  background: rgba(247, 250, 251, 0.7);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  appearance: none;
+  cursor: pointer;
+}
+
+.language-switcher select:hover {
+  border-color: rgba(1, 56, 81, 0.5);
+  background: var(--glow-white);
+}
+
+.language-switcher select:focus-visible {
+  outline: 3px solid var(--glow-blue);
+  outline-offset: 2px;
 }
 
 .site-quote-action {
@@ -1528,7 +1587,7 @@ body.is-form-busy {
     width: 7.5rem;
   }
 
-  .site-bar > .primary-action {
+  .header-actions .primary-action {
     display: none;
   }
 

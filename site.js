@@ -271,6 +271,76 @@
   const countrySelect = form?.querySelector("select[name='country']");
   const pageLanguage = document.documentElement.lang.toLowerCase().split("-")[0] || "en";
   const apiLanguage = pageLanguage === "it" ? "it" : "en";
+  const formCopy = {
+    en: {
+      invalid: "Please complete the required fields before requesting a quote.",
+      checking: "Sending your Glow enquiry.",
+      sending: "Sending request",
+      success: "Thank you. Your request is in: our team will contact you shortly.",
+      rateLimit: "Too many requests, please try again later.",
+      failed: "We could not send your request. Please try again.",
+      network: "We could not send your request. Please check your connection and try again.",
+      checkForm: "Please check the form and try again."
+    },
+    it: {
+      invalid: "Completa i campi obbligatori prima di richiedere un preventivo.",
+      checking: "Invio della richiesta per Glow.",
+      sending: "Invio in corso",
+      success: "Grazie. Abbiamo ricevuto la tua richiesta: il nostro team ti contatterà a breve.",
+      rateLimit: "Troppe richieste. Riprova più tardi.",
+      failed: "Non è stato possibile inviare la richiesta. Riprova.",
+      network: "Non è stato possibile inviare la richiesta. Controlla la connessione e riprova.",
+      checkForm: "Controlla il modulo e riprova."
+    },
+    de: {
+      invalid: "Bitte füllen Sie die Pflichtfelder aus, bevor Sie ein Angebot anfordern.",
+      checking: "Ihre Glow-Anfrage wird gesendet.",
+      sending: "Anfrage wird gesendet",
+      success: "Vielen Dank. Ihre Anfrage ist eingegangen. Unser Team wird sich in Kürze bei Ihnen melden.",
+      rateLimit: "Zu viele Anfragen. Bitte versuchen Sie es später erneut.",
+      failed: "Ihre Anfrage konnte nicht gesendet werden. Bitte versuchen Sie es erneut.",
+      network: "Ihre Anfrage konnte nicht gesendet werden. Bitte prüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
+      checkForm: "Bitte prüfen Sie das Formular und versuchen Sie es erneut."
+    },
+    es: {
+      invalid: "Complete los campos obligatorios antes de solicitar un presupuesto.",
+      checking: "Enviando su consulta sobre Glow.",
+      sending: "Enviando solicitud",
+      success: "Gracias. Hemos recibido su solicitud: nuestro equipo se pondrá en contacto con usted en breve.",
+      rateLimit: "Demasiadas solicitudes. Inténtelo de nuevo más tarde.",
+      failed: "No hemos podido enviar su solicitud. Inténtelo de nuevo.",
+      network: "No hemos podido enviar su solicitud. Compruebe su conexión e inténtelo de nuevo.",
+      checkForm: "Revise el formulario e inténtelo de nuevo."
+    }
+  }[pageLanguage] || null;
+  const activeFormCopy = formCopy || {
+    invalid: "Please complete the required fields before requesting a quote.",
+    checking: "Sending your Glow enquiry.",
+    sending: "Sending request",
+    success: "Thank you. Your request is in: our team will contact you shortly.",
+    rateLimit: "Too many requests, please try again later.",
+    failed: "We could not send your request. Please try again.",
+    network: "We could not send your request. Please check your connection and try again.",
+    checkForm: "Please check the form and try again."
+  };
+  const languageSelect = document.querySelector("[data-language-select]");
+
+  if (languageSelect) {
+    const localePath = `/${pageLanguage}/glow/`;
+    if (Array.from(languageSelect.options).some((option) => option.value === localePath)) {
+      languageSelect.value = localePath;
+    }
+    languageSelect.addEventListener("change", () => {
+      const destination = languageSelect.value;
+      const locale = destination.split("/").filter(Boolean)[0] || "en";
+      try {
+        window.localStorage.setItem("carimaliGlowLanguage", locale);
+      } catch {
+        // Language choice still works when storage is unavailable.
+      }
+      window.location.assign(`${destination}${window.location.search}${window.location.hash}`);
+    });
+  }
 
   function populateCountries() {
     if (!countrySelect) return;
@@ -320,13 +390,13 @@
   }
 
   function apiErrorHint(result) {
-    if (!result || typeof result !== "object") return "Please check the form and try again.";
+    if (!result || typeof result !== "object") return activeFormCopy.checkForm;
     if (typeof result.hint === "string") return result.hint;
     if (typeof result.error === "string") return result.error;
     if (typeof result.message === "string") return result.message;
     if (Array.isArray(result.errors)) return result.errors.map(String).join(" ");
     if (result.errors && typeof result.errors === "object") return Object.values(result.errors).flat().map(String).join(" ");
-    return "Please check the form and try again.";
+    return activeFormCopy.checkForm;
   }
 
   function buildLeadPayload(data) {
@@ -376,7 +446,7 @@
     const invalid = markInvalidFields();
 
     if (invalid.length) {
-      setFormStatus("Please complete the required fields before requesting a quote.", "error");
+      setFormStatus(activeFormCopy.invalid, "error");
       invalid[0].focus();
       return;
     }
@@ -387,8 +457,8 @@
 
     body.classList.add("is-form-busy");
     submitButton.disabled = true;
-    submitButton.textContent = "Sending request";
-    setFormStatus("Sending your Glow enquiry.");
+    submitButton.textContent = activeFormCopy.sending;
+    setFormStatus(activeFormCopy.checking);
 
     try {
       const response = await fetch(LEAD_ENDPOINT, {
@@ -404,18 +474,18 @@
       }
 
       if (response.status === 200 && result?.ok === true) {
-        setFormStatus("Thank you. Your request is in: our team will contact you shortly.", "success");
+        setFormStatus(activeFormCopy.success, "success");
         form.reset();
         form.querySelectorAll("[aria-invalid]").forEach((field) => field.setAttribute("aria-invalid", "false"));
       } else if (response.status === 400) {
         setFormStatus(apiErrorHint(result), "error");
       } else if (response.status === 429) {
-        setFormStatus("Too many requests, please try again later.", "error");
+        setFormStatus(activeFormCopy.rateLimit, "error");
       } else {
-        setFormStatus("We could not send your request. Please try again.", "error");
+        setFormStatus(activeFormCopy.failed, "error");
       }
     } catch {
-      setFormStatus("We could not send your request. Please check your connection and try again.", "error");
+      setFormStatus(activeFormCopy.network, "error");
     } finally {
       body.classList.remove("is-form-busy");
       submitButton.disabled = false;

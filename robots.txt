@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://carimali-glow.vercel.app/sitemap.xml

@@ -17,7 +17,11 @@ const types = {
 
 http.createServer((request, response) => {
   const urlPath = decodeURIComponent(request.url.split("?")[0]);
-  const requested = path.resolve(root, `.${urlPath === "/" ? "/index.html" : urlPath}`);
+  let requested = path.resolve(root, `.${urlPath === "/" ? "/index.html" : urlPath}`);
+
+  if (requested.startsWith(root) && fs.existsSync(requested) && fs.statSync(requested).isDirectory()) {
+    requested = path.join(requested, "index.html");
+  }
 
   if (!requested.startsWith(root) || !fs.existsSync(requested) || fs.statSync(requested).isDirectory()) {
     response.writeHead(404).end("Not found");

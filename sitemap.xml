@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://carimali-glow.vercel.app/en/glow/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://carimali-glow.vercel.app/en/glow/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://carimali-glow.vercel.app/it/glow/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://carimali-glow.vercel.app/de/glow/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://carimali-glow.vercel.app/es/glow/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://carimali-glow.vercel.app/en/glow/"/>
+  </url>
+  <url>
+    <loc>https://carimali-glow.vercel.app/it/glow/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://carimali-glow.vercel.app/en/glow/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://carimali-glow.vercel.app/it/glow/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://carimali-glow.vercel.app/de/glow/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://carimali-glow.vercel.app/es/glow/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://carimali-glow.vercel.app/en/glow/"/>
+  </url>
+  <url>
+    <loc>https://carimali-glow.vercel.app/de/glow/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://carimali-glow.vercel.app/en/glow/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://carimali-glow.vercel.app/it/glow/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://carimali-glow.vercel.app/de/glow/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://carimali-glow.vercel.app/es/glow/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://carimali-glow.vercel.app/en/glow/"/>
+  </url>
+  <url>
+    <loc>https://carimali-glow.vercel.app/es/glow/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://carimali-glow.vercel.app/en/glow/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://carimali-glow.vercel.app/it/glow/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://carimali-glow.vercel.app/de/glow/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://carimali-glow.vercel.app/es/glow/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://carimali-glow.vercel.app/en/glow/"/>
+  </url>
+</urlset>
